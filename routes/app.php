@@ -1,7 +1,9 @@
 <?php
 
 use App\Modules\Feedback\Controllers\FeedbackController;
-use App\Modules\Changelog\Controllers\ChangelogController;
+use App\Livewire\Changelog\ChangelogList;
+use App\Livewire\Changelog\ChangelogForm;
+use App\Livewire\Changelog\ChangelogView;
 use App\Modules\Knowledge\Controllers\KnowledgeController;
 use App\Modules\Research\Controllers\ResearchController;
 use App\Modules\Personas\Controllers\PersonaController;
@@ -31,13 +33,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
     
     // Changelog Module
     Route::prefix('changelog')->name('changelog.')->group(function () {
-        Route::get('/', [ChangelogController::class, 'index'])->name('index');
-        Route::get('/create', [ChangelogController::class, 'create'])->name('create');
-        Route::post('/', [ChangelogController::class, 'store'])->name('store');
-        Route::get('/{changelog}', [ChangelogController::class, 'show'])->name('show');
-        Route::get('/{changelog}/edit', [ChangelogController::class, 'edit'])->name('edit');
-        Route::put('/{changelog}', [ChangelogController::class, 'update'])->name('update');
-        Route::delete('/{changelog}', [ChangelogController::class, 'destroy'])->name('destroy');
+        Route::get('/', ChangelogList::class)->name('index');
+        Route::get('/create', ChangelogForm::class)->name('create');
+        Route::get('/{id}', ChangelogView::class)->name('view');
+        Route::get('/{id}/edit', ChangelogForm::class)->name('edit');
     });
     
     // Knowledge Base Module
