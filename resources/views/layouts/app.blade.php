@@ -12,11 +12,11 @@
 </head>
 <body class="bg-gray-50 dark:bg-neutral-900">
     @include('layouts.partials.sidebar')
-    
+
     <div class="w-full lg:ps-64">
         @include('layouts.partials.topbar')
 
-        <main class="w-full pt-10 px-4 sm:px-6 md:px-8 lg:ps-72">
+        <main class="w-full pt-5 px-4 sm:px-6 md:px-8 lg:ps-32">
             {{ $slot }}
         </main>
     </div>

@@ -16,7 +16,7 @@
     @include('layouts.partials.topbar')
 
     <!-- ========== MAIN CONTENT ========== -->
-    <main id="content" class="lg:ps-65 pt-15 pb-10 sm:pb-16">
+    <main id="content" class="lg:ps-65 pt-5 pb-10 sm:pb-16">
         {{ $slot }}
     </main>
     <!-- ========== END MAIN CONTENT ========== -->

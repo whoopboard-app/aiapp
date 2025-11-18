@@ -17,47 +17,39 @@
                         </a>
                     </li>
 
-                    <li>
-                        <a class="flex items-center gap-x-3.5 py-2 px-2.5 text-sm text-gray-800 rounded-lg hover:bg-gray-100" href="{{ route('changelog.index') }}">
-                            <svg class="shrink-0 size-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/></svg>
-                            Changelog
-                        </a>
-                    </li>
+                    @php
+                        $navigationItems = \App\Models\WorkspaceNavigationItem::where('workspace_id', Auth::user()->workspace->id)
+                            ->where('is_active', true)
+                            ->orderBy('sort_order')
+                            ->get();
 
-                    <li>
-                        <a class="flex items-center gap-x-3.5 py-2 px-2.5 text-sm text-gray-800 rounded-lg hover:bg-gray-100" href="{{ route('feedback.index') }}">
-                            <svg class="shrink-0 size-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-                            Feedback
-                        </a>
-                    </li>
+                        $navigationIcons = [
+                            'changelog' => '<path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/>',
+                            'feedback' => '<path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>',
+                            'roadmap' => '<path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="m22 4-10 6"/><path d="m6 12-4-2"/>',
+                            'testimonials' => '<path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/>',
+                            'knowledge_board' => '<path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>',
+                            'research_repo' => '<circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/>',
+                        ];
 
-                    <li>
-                        <a class="flex items-center gap-x-3.5 py-2 px-2.5 text-sm text-gray-800 rounded-lg hover:bg-gray-100" href="#">
-                            <svg class="shrink-0 size-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/></svg>
-                            Roadmap
-                        </a>
-                    </li>
+                        $navigationRoutes = [
+                            'changelog' => 'changelog.index',
+                            'feedback' => 'feedback.index',
+                            'roadmap' => '#',
+                            'testimonials' => 'testimonials.index',
+                            'knowledge_board' => 'knowledge.index',
+                            'research_repo' => 'research.index',
+                        ];
+                    @endphp
 
-                    <li>
-                        <a class="flex items-center gap-x-3.5 py-2 px-2.5 text-sm text-gray-800 rounded-lg hover:bg-gray-100" href="{{ route('testimonials.index') }}">
-                            <svg class="shrink-0 size-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>
-                            Testimonials
-                        </a>
-                    </li>
-
-                    <li>
-                        <a class="flex items-center gap-x-3.5 py-2 px-2.5 text-sm text-gray-800 rounded-lg hover:bg-gray-100" href="{{ route('knowledge.index') }}">
-                            <svg class="shrink-0 size-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/></svg>
-                            Knowledge Board
-                        </a>
-                    </li>
-
-                    <li>
-                        <a class="flex items-center gap-x-3.5 py-2 px-2.5 text-sm text-gray-800 rounded-lg hover:bg-gray-100" href="{{ route('research.index') }}">
-                            <svg class="shrink-0 size-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
-                            Research Repo
-                        </a>
-                    </li>
+                    @foreach($navigationItems as $navItem)
+                        <li>
+                            <a class="flex items-center gap-x-3.5 py-2 px-2.5 text-sm text-gray-800 rounded-lg hover:bg-gray-100 dark:text-neutral-200 dark:hover:bg-neutral-700" href="{{ $navigationRoutes[$navItem->key] !== '#' ? route($navigationRoutes[$navItem->key]) : '#' }}">
+                                <svg class="shrink-0 size-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">{!! $navigationIcons[$navItem->key] ?? '<circle cx="12" cy="12" r="10"/>' !!}</svg>
+                                {{ $navItem->label }}
+                            </a>
+                        </li>
+                    @endforeach
 
                     <li>
                         <a class="flex items-center gap-x-3.5 py-2 px-2.5 text-sm text-gray-800 rounded-lg hover:bg-gray-100" href="#">
