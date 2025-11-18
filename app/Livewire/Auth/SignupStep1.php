@@ -19,7 +19,7 @@ class SignupStep1 extends Component
     protected $rules = [
         'email' => 'required|email|max:255|unique:users,email',
         'workspaceName' => 'required|string|min:2|max:255',
-        'password' => 'required|string|min:8|confirmed',
+        'password' => 'required|string|min:8|confirmed|regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]/',
     ];
 
     protected $messages = [
@@ -30,6 +30,7 @@ class SignupStep1 extends Component
         'workspaceName.min' => 'Workspace name must be at least 2 characters.',
         'password.required' => 'Please enter a password.',
         'password.min' => 'Password must be at least 8 characters.',
+        'password.regex' => 'Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character.',
         'password.confirmed' => 'Password confirmation does not match.',
     ];
 
@@ -46,12 +47,13 @@ class SignupStep1 extends Component
                 'is_active' => true,
             ]);
 
-            // Create user
+            // Create user as workspace owner
             $user = User::create([
                 'workspace_id' => $workspace->id,
                 'name' => explode('@', $this->email)[0], // Use email prefix as name
                 'email' => $this->email,
                 'password' => Hash::make($this->password),
+                'role' => 'owner', // First user is the workspace owner
             ]);
 
             DB::commit();

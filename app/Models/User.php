@@ -21,9 +21,15 @@ class User extends Authenticatable implements MustVerifyEmail
     protected $fillable = [
         'workspace_id',
         'name',
+        'first_name',
+        'last_name',
         'email',
+        'profile_image',
         'password',
         'role',
+        'timezone',
+        'is_active',
+        'can_login',
         'onboarded_at',
         'last_active_at',
     ];
@@ -50,6 +56,8 @@ class User extends Authenticatable implements MustVerifyEmail
             'onboarded_at' => 'datetime',
             'last_active_at' => 'datetime',
             'password' => 'hashed',
+            'is_active' => 'boolean',
+            'can_login' => 'boolean',
         ];
     }
 

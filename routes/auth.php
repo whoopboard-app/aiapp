@@ -3,6 +3,7 @@
 use App\Livewire\Auth\SignupStep1;
 use App\Livewire\Auth\SignupStep2;
 use App\Livewire\Auth\Login;
+use App\Livewire\Auth\InviteSignup;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -15,6 +16,9 @@ Route::middleware('guest')->group(function () {
     // Sign Up Flow
     Route::get('/signup', SignupStep1::class)->name('signup');
     Route::get('/signup/verify/{token}', SignupStep2::class)->name('signup.verify');
+
+    // Invite Sign Up
+    Route::get('/invite/{token}', InviteSignup::class)->name('invite.signup');
 
     // Login
     Route::get('/login', Login::class)->name('login');
