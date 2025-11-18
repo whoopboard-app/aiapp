@@ -254,23 +254,23 @@
                     <div class="p-4 space-y-4">
                         <!-- Name -->
                         <div>
-                            <label for="editMemberName" class="block text-sm font-medium mb-2 dark:text-white">
+                            <label for="editMemberName" class="block text-sm font-medium mb-2 text-gray-800 dark:text-neutral-200">
                                 Name
                             </label>
                             <input
                                 type="text"
                                 id="editMemberName"
                                 wire:model.defer="editMemberName"
-                                class="py-3 px-4 block w-full border-gray-200 rounded-lg text-sm focus:border-indigo-500 focus:ring-indigo-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600 @error('editMemberName') border-red-500 focus:border-red-500 focus:ring-red-500 @enderror"
+                                class="py-2 px-3 block w-full bg-white border-gray-200 rounded-lg text-sm focus:outline-hidden focus:ring-0 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-800 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder:text-neutral-400 dark:focus:ring-neutral-600 @error('editMemberName') border-red-500 @enderror"
                             >
                             @error('editMemberName')
-                                <p class="text-sm text-red-600 mt-2">{{ $message }}</p>
+                                <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
                             @enderror
                         </div>
 
                         <!-- Email (Readonly) -->
                         <div>
-                            <label for="editMemberEmail" class="block text-sm font-medium mb-2 dark:text-white">
+                            <label for="editMemberEmail" class="block text-sm font-medium mb-2 text-gray-800 dark:text-neutral-200">
                                 Email Address
                             </label>
                             <input
@@ -278,33 +278,33 @@
                                 id="editMemberEmail"
                                 wire:model="editMemberEmail"
                                 readonly
-                                class="py-3 px-4 block w-full border-gray-200 rounded-lg text-sm bg-gray-50 text-gray-500 cursor-not-allowed dark:bg-neutral-800 dark:border-neutral-700 dark:text-neutral-500"
+                                class="py-2 px-3 block w-full border-gray-200 rounded-lg text-sm bg-gray-50 text-gray-500 cursor-not-allowed dark:bg-neutral-800 dark:border-neutral-700 dark:text-neutral-500"
                             >
                         </div>
 
                         <!-- Role -->
                         <div>
-                            <label for="editMemberRole" class="block text-sm font-medium mb-2 dark:text-white">
+                            <label for="editMemberRole" class="block text-sm font-medium mb-2 text-gray-800 dark:text-neutral-200">
                                 Role
                             </label>
                             <select
                                 id="editMemberRole"
                                 wire:model.defer="editMemberRole"
-                                class="py-3 px-4 pe-9 block w-full border-gray-200 rounded-lg text-sm focus:border-indigo-500 focus:ring-indigo-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600 @error('editMemberRole') border-red-500 focus:border-red-500 focus:ring-red-500 @enderror"
+                                class="py-2 px-3 pe-9 block w-full bg-white border-gray-200 rounded-lg text-sm focus:outline-hidden focus:ring-0 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-800 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder:text-neutral-400 dark:focus:ring-neutral-600 @error('editMemberRole') border-red-500 @enderror"
                             >
                                 @foreach($roles as $key => $label)
                                     <option value="{{ $key }}">{{ $label }}</option>
                                 @endforeach
                             </select>
                             @error('editMemberRole')
-                                <p class="text-sm text-red-600 mt-2">{{ $message }}</p>
+                                <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
                             @enderror
                         </div>
 
                         <!-- Status Toggle -->
                         <div class="flex items-center justify-between p-4 border border-gray-200 rounded-lg dark:border-neutral-700">
                             <div>
-                                <label class="block text-sm font-medium dark:text-white">
+                                <label class="block text-sm font-medium text-gray-800 dark:text-neutral-200">
                                     Account Status
                                 </label>
                                 <p class="text-xs text-gray-500 dark:text-neutral-400 mt-1">
@@ -314,14 +314,14 @@
                             <input
                                 type="checkbox"
                                 wire:model.defer="editMemberIsActive"
-                                class="relative w-11 h-6 p-px bg-gray-100 border-transparent text-transparent rounded-full cursor-pointer transition-colors ease-in-out duration-200 focus:ring-indigo-600 disabled:opacity-50 disabled:pointer-events-none checked:bg-none checked:text-indigo-600 checked:border-indigo-600 focus:checked:border-indigo-600 dark:bg-neutral-800 dark:border-neutral-700 dark:checked:bg-indigo-500 dark:checked:border-indigo-500 dark:focus:ring-offset-neutral-900 before:inline-block before:size-5 before:bg-white checked:before:bg-indigo-200 before:translate-x-0 checked:before:translate-x-full before:rounded-full before:shadow before:transform before:ring-0 before:transition before:ease-in-out before:duration-200 dark:before:bg-neutral-400 dark:checked:before:bg-indigo-200"
+                                class="relative w-11 h-6 p-px bg-gray-100 border-transparent text-transparent rounded-full cursor-pointer transition-colors ease-in-out duration-200 focus:ring-indigo-600 disabled:opacity-50 disabled:pointer-events-none checked:bg-none checked:text-indigo-600 checked:border-indigo-600 focus:checked:border-indigo-600 dark:bg-neutral-700 dark:border-neutral-700 dark:checked:bg-indigo-500 dark:checked:border-indigo-500 dark:focus:ring-offset-gray-800 before:inline-block before:size-5 before:bg-white checked:before:bg-indigo-200 before:translate-x-0 checked:before:translate-x-full before:rounded-full before:shadow before:transform before:ring-0 before:transition before:ease-in-out before:duration-200 dark:before:bg-neutral-400 dark:checked:before:bg-indigo-200"
                             >
                         </div>
 
                         <!-- Login Access Toggle -->
                         <div class="flex items-center justify-between p-4 border border-gray-200 rounded-lg dark:border-neutral-700">
                             <div>
-                                <label class="block text-sm font-medium dark:text-white">
+                                <label class="block text-sm font-medium text-gray-800 dark:text-neutral-200">
                                     Login Access
                                 </label>
                                 <p class="text-xs text-gray-500 dark:text-neutral-400 mt-1">
@@ -331,7 +331,7 @@
                             <input
                                 type="checkbox"
                                 wire:model.defer="editMemberCanLogin"
-                                class="relative w-11 h-6 p-px bg-gray-100 border-transparent text-transparent rounded-full cursor-pointer transition-colors ease-in-out duration-200 focus:ring-indigo-600 disabled:opacity-50 disabled:pointer-events-none checked:bg-none checked:text-indigo-600 checked:border-indigo-600 focus:checked:border-indigo-600 dark:bg-neutral-800 dark:border-neutral-700 dark:checked:bg-indigo-500 dark:checked:border-indigo-500 dark:focus:ring-offset-neutral-900 before:inline-block before:size-5 before:bg-white checked:before:bg-indigo-200 before:translate-x-0 checked:before:translate-x-full before:rounded-full before:shadow before:transform before:ring-0 before:transition before:ease-in-out before:duration-200 dark:before:bg-neutral-400 dark:checked:before:bg-indigo-200"
+                                class="relative w-11 h-6 p-px bg-gray-100 border-transparent text-transparent rounded-full cursor-pointer transition-colors ease-in-out duration-200 focus:ring-indigo-600 disabled:opacity-50 disabled:pointer-events-none checked:bg-none checked:text-indigo-600 checked:border-indigo-600 focus:checked:border-indigo-600 dark:bg-neutral-700 dark:border-neutral-700 dark:checked:bg-indigo-500 dark:checked:border-indigo-500 dark:focus:ring-offset-gray-800 before:inline-block before:size-5 before:bg-white checked:before:bg-indigo-200 before:translate-x-0 checked:before:translate-x-full before:rounded-full before:shadow before:transform before:ring-0 before:transition before:ease-in-out before:duration-200 dark:before:bg-neutral-400 dark:checked:before:bg-indigo-200"
                             >
                         </div>
                     </div>
