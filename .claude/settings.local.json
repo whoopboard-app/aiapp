@@ -7,7 +7,10 @@
       "Bash(npx tailwindcss:*)",
       "Bash(./node_modules/.bin/tailwindcss:*)",
       "Bash(cat:*)",
-      "Bash(mkdir:*)"
+      "Bash(mkdir:*)",
+      "Bash(for file in StatusWorkflow.php TopicsTags.php Changelog.php Themes.php Plan.php Billing.php Plans.php)",
+      "Bash(do sed -i \"s/->layout(''layouts.settings'')//\" \"$file\")",
+      "Bash(done)"
     ],
     "deny": [],
     "ask": []

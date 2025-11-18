@@ -13,8 +13,13 @@ class Workspace extends Model
 
     protected $fillable = [
         'name',
+        'company_name',
         'slug',
         'website_url',
+        'support_email',
+        'timezone',
+        'date_format',
+        'time_format',
         'is_active',
     ];
 
@@ -36,6 +41,22 @@ class Workspace extends Model
     public function owner()
     {
         return $this->users()->oldest()->first();
+    }
+
+    /**
+     * Get all invitations for this workspace
+     */
+    public function invitations(): HasMany
+    {
+        return $this->hasMany(\App\Modules\Settings\Models\WorkspaceInvitation::class);
+    }
+
+    /**
+     * Get pending invitations
+     */
+    public function pendingInvitations()
+    {
+        return $this->invitations()->where('status', 'pending')->get();
     }
 
     /**
