@@ -9,8 +9,16 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    if (auth()->check()) {
+        return redirect()->route('workspace.dashboard');
+    }
+    return redirect()->route('login');
 })->name('home');
+
+// Convenience redirect for /dashboard
+Route::get('/dashboard', function () {
+    return redirect()->route('workspace.dashboard');
+})->middleware('auth');
 
 /*
 |--------------------------------------------------------------------------

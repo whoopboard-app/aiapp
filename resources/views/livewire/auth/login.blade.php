@@ -1,112 +1,106 @@
 <div>
-    <div class="bg-white rounded-lg shadow-sm p-8">
-        <div class="space-y-6">
-            <!-- Header -->
-            <div class="text-center">
-                <h2 class="text-2xl font-bold text-gray-900">Welcome back</h2>
-                <p class="mt-2 text-sm text-gray-600">Sign in to your account to continue</p>
-            </div>
-
-            <!-- Login Form -->
-            <form wire:submit="login" class="space-y-4">
-                <!-- Email Input -->
-                <div>
-                    <label for="email" class="block text-sm font-medium text-gray-700 mb-2">
-                        Email Address
-                    </label>
-                    <input
-                        type="email"
-                        id="email"
-                        wire:model="email"
-                        class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition @error('email') border-red-500 @enderror"
-                        placeholder="you@company.com"
-                        autofocus
-                    >
-                    @error('email')
-                        <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
-                    @enderror
-                </div>
-
-                <!-- Password Input -->
-                <div>
-                    <div class="flex items-center justify-between mb-2">
-                        <label for="password" class="block text-sm font-medium text-gray-700">
-                            Password
-                        </label>
-                        <a href="#" class="text-sm font-medium text-blue-600 hover:text-blue-500">
-                            Forgot password?
-                        </a>
+    <!-- ========== MAIN CONTENT ========== -->
+    <main id="content" class="pb-23 sm:pb-16">
+        <div class="py-10 lg:py-20 w-full max-w-[85rem] px-4 sm:px-6 lg:px-8 mx-auto">
+            <div class="w-full max-w-sm mx-auto">
+                <!-- Log In Details -->
+                <div class="space-y-8">
+                    <div class="text-center">
+                        <h2 class="font-medium text-xl text-gray-800 dark:text-neutral-200">
+                            Log In
+                        </h2>
                     </div>
-                    <div class="relative">
-                        <input
-                            type="password"
-                            id="password"
-                            wire:model="password"
-                            x-data="{ show: false }"
-                            :type="show ? 'text' : 'password'"
-                            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition @error('password') border-red-500 @enderror"
-                            placeholder="Enter your password"
-                        >
-                        <button
-                            type="button"
-                            @click="show = !show"
-                            class="absolute inset-y-0 right-0 flex items-center pr-3 text-gray-400 hover:text-gray-600"
-                        >
-                            <svg x-show="!show" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
-                            </svg>
-                            <svg x-show="show" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="display: none;">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l3.59 3.59m0 0A9.953 9.953 0 0112 5c4.478 0 8.268 2.943 9.543 7a10.025 10.025 0 01-4.132 5.411m0 0L21 21"/>
-                            </svg>
-                        </button>
-                    </div>
-                    @error('password')
-                        <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
-                    @enderror
-                </div>
 
-                <!-- Remember Me -->
-                <div class="flex items-center">
-                    <input
-                        type="checkbox"
-                        id="remember"
-                        wire:model="remember"
-                        class="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-2 focus:ring-blue-500"
-                    >
-                    <label for="remember" class="ml-2 block text-sm text-gray-700">
-                        Remember me for 30 days
-                    </label>
-                </div>
+                    <form wire:submit.prevent="login" class="space-y-3">
+                        <!-- Email Input -->
+                        <div>
+                            <label for="email" class="sr-only">
+                                Email
+                            </label>
+                            <input
+                                id="email"
+                                type="email"
+                                wire:model.defer="email"
+                                class="py-3 px-4 block w-full border-gray-200 rounded-lg sm:text-sm placeholder:text-gray-400 focus:border-indigo-500 focus:ring-indigo-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-transparent dark:border-neutral-700 dark:text-neutral-300 dark:placeholder:text-white/60 dark:focus:ring-neutral-600 @error('email') border-red-500 @enderror"
+                                placeholder="Email"
+                            >
+                            @error('email')
+                                <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
+                            @enderror
+                        </div>
+                        <!-- End Email Input -->
 
-                <!-- Submit Button -->
-                <button
-                    type="submit"
-                    class="w-full px-4 py-3 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition disabled:opacity-50 disabled:cursor-not-allowed"
-                    wire:loading.attr="disabled"
-                >
-                    <span wire:loading.remove>Sign In</span>
-                    <span wire:loading>Signing in...</span>
-                </button>
-            </form>
+                        <!-- Password Input -->
+                        <div>
+                            <label for="password" class="sr-only">
+                                Password
+                            </label>
 
-            <!-- Divider -->
-            <div class="relative">
-                <div class="absolute inset-0 flex items-center">
-                    <div class="w-full border-t border-gray-200"></div>
-                </div>
-                <div class="relative flex justify-center text-sm">
-                    <span class="px-2 bg-white text-gray-500">or</span>
-                </div>
-            </div>
+                            <div class="relative">
+                                <input
+                                    id="password"
+                                    type="password"
+                                    wire:model.defer="password"
+                                    class="py-3 px-4 block w-full border-gray-200 rounded-lg sm:text-sm placeholder:text-gray-400 focus:border-indigo-500 focus:ring-indigo-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-transparent dark:border-neutral-700 dark:text-neutral-300 dark:placeholder:text-white/60 dark:focus:ring-neutral-600 @error('password') border-red-500 @enderror"
+                                    placeholder="Password"
+                                >
+                                <button type="button" data-hs-toggle-password='{
+                                    "target": "#password"
+                                }' class="absolute inset-y-0 end-0 flex items-center z-20 px-3 cursor-pointer text-gray-400 rounded-e-md focus:outline-hidden focus:text-indigo-600 dark:text-neutral-600 dark:focus:text-indigo-500">
+                                    <svg class="shrink-0 size-3.5" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                                        <path class="hs-password-active:hidden" d="M13.359 11.238C15.06 9.72 16 8 16 8s-3-5.5-8-5.5a7.028 7.028 0 0 0-2.79.588l.77.771A5.944 5.944 0 0 1 8 3.5c2.12 0 3.879 1.168 5.168 2.457A13.134 13.134 0 0 1 14.828 8c-.058.087-.122.183-.195.288-.335.48-.83 1.12-1.465 1.755-.165.165-.337.328-.517.486l.708.709z" />
+                                        <path class="hs-password-active:hidden" d="M11.297 9.176a3.5 3.5 0 0 0-4.474-4.474l.823.823a2.5 2.5 0 0 1 2.829 2.829l.822.822zm-2.943 1.299.822.822a3.5 3.5 0 0 1-4.474-4.474l.823.823a2.5 2.5 0 0 0 2.829 2.829z" />
+                                        <path class="hs-password-active:hidden" d="M3.35 5.47c-.18.16-.353.322-.518.487A13.134 13.134 0 0 0 1.172 8l.195.288c.335.48.83 1.12 1.465 1.755C4.121 11.332 5.881 12.5 8 12.5c.716 0 1.39-.133 2.02-.36l.77.772A7.029 7.029 0 0 1 8 13.5C3 13.5 0 8 0 8s.939-1.721 2.641-3.238l.708.709zm10.296 8.884-12-12 .708-.708 12 12-.708.708z" />
+                                        <path class="hidden hs-password-active:block" d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8zM1.173 8a13.133 13.133 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5c2.12 0 3.879 1.168 5.168 2.457A13.133 13.133 0 0 1 14.828 8c-.058.087-.122.183-.195.288-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5c-2.12 0-3.879-1.168-5.168-2.457A13.134 13.134 0 0 1 1.172 8z" />
+                                        <path class="hidden hs-password-active:block" d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5zM4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0z" />
+                                    </svg>
+                                </button>
+                            </div>
+                            @error('password')
+                                <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
+                            @enderror
+                        </div>
+                        <!-- End Password Input -->
 
-            <!-- Sign Up Link -->
-            <div class="text-center text-sm">
-                <span class="text-gray-600">Don't have an account?</span>
-                <a href="{{ route('signup') }}" class="font-medium text-blue-600 hover:text-blue-500">
-                    Create an account
-                </a>
+                        <div class="flex flex-wrap justify-between items-center gap-3">
+                            <!-- Remember Me Checkbox -->
+                            <div class="flex gap-x-2">
+                                <input
+                                    type="checkbox"
+                                    wire:model.defer="remember"
+                                    class="shrink-0 border-gray-300 size-4.5 rounded-sm text-indigo-600 checked:border-indigo-600 focus:ring-indigo-600 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-600 dark:checked:bg-indigo-500 dark:checked:border-indigo-500 dark:focus:ring-offset-neutral-800"
+                                    id="remember"
+                                >
+                                <label for="remember" class="text-[13px] text-gray-500 dark:text-neutral-400">
+                                    Remember me
+                                </label>
+                            </div>
+                            <!-- End Checkbox -->
+
+                            <a class="text-[13px] text-gray-500 underline underline-offset-4 hover:text-indigo-600 focus:outline-hidden focus:text-indigo-600 dark:text-neutral-500 dark:hover:text-indigo-400 dark:focus:text-indigo-400" href="#">
+                                Forgot your password?
+                            </a>
+                        </div>
+
+                        <div class="space-y-4 pt-2">
+                            <button
+                                type="submit"
+                                class="py-3 px-4 w-full inline-flex justify-center items-center gap-x-2 sm:text-sm font-medium rounded-lg border border-transparent bg-indigo-600 text-white hover:bg-indigo-700 disabled:opacity-50 disabled:pointer-events-none focus:outline-hidden focus:bg-indigo-700"
+                                wire:loading.attr="disabled"
+                            >
+                                <span wire:loading.remove>Log in</span>
+                                <span wire:loading>Signing in...</span>
+                            </button>
+
+                            <a class="py-3 px-4 relative w-full inline-flex justify-center items-center gap-x-1.5 sm:text-sm font-medium rounded-lg border border-gray-200 bg-white text-gray-800 shadow-2xs hover:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none focus:outline-hidden focus:bg-gray-50 dark:bg-neutral-900 dark:hover:bg-neutral-800 dark:focus:bg-neutral-800 dark:border-neutral-700 dark:text-neutral-300" href="{{ route('signup') }}">
+                                Create account
+                            </a>
+                        </div>
+                    </form>
+                </div>
+                <!-- End Log In Details -->
             </div>
         </div>
-    </div>
+    </main>
+    <!-- ========== END MAIN CONTENT ========== -->
 </div>

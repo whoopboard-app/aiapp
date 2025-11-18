@@ -3,43 +3,70 @@
 namespace App\Livewire\Auth;
 
 use Livewire\Component;
-use App\Modules\Auth\Models\PendingRegistration;
-use App\Notifications\VerifyEmailForSignup;
-use Illuminate\Support\Facades\Notification;
+use App\Modules\Workspace\Models\Workspace;
+use App\Models\User;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 
 class SignupStep1 extends Component
 {
     public $email = '';
-    public $emailSent = false;
+    public $workspaceName = '';
+    public $password = '';
+    public $password_confirmation = '';
 
     protected $rules = [
         'email' => 'required|email|max:255|unique:users,email',
+        'workspaceName' => 'required|string|min:2|max:255',
+        'password' => 'required|string|min:8|confirmed',
     ];
 
     protected $messages = [
         'email.required' => 'Please enter your work email address.',
         'email.email' => 'Please enter a valid email address.',
         'email.unique' => 'This email is already registered. Please log in instead.',
+        'workspaceName.required' => 'Please enter your workspace name.',
+        'workspaceName.min' => 'Workspace name must be at least 2 characters.',
+        'password.required' => 'Please enter a password.',
+        'password.min' => 'Password must be at least 8 characters.',
+        'password.confirmed' => 'Password confirmation does not match.',
     ];
 
-    public function submitEmail()
+    public function submitSignup()
     {
         $this->validate();
 
-        // Create pending registration
-        $pendingRegistration = PendingRegistration::createForEmail($this->email);
+        DB::beginTransaction();
+        try {
+            // Create workspace
+            $workspace = Workspace::create([
+                'name' => $this->workspaceName,
+                'slug' => Workspace::generateSlug($this->workspaceName),
+                'is_active' => true,
+            ]);
 
-        // Send verification email
-        Notification::route('mail', $this->email)
-            ->notify(new VerifyEmailForSignup($pendingRegistration));
+            // Create user
+            $user = User::create([
+                'workspace_id' => $workspace->id,
+                'name' => explode('@', $this->email)[0], // Use email prefix as name
+                'email' => $this->email,
+                'password' => Hash::make($this->password),
+                'email_verified_at' => now(), // Auto-verify for now
+            ]);
 
-        $this->emailSent = true;
-    }
+            DB::commit();
 
-    public function resendEmail()
-    {
-        $this->emailSent = false;
-        $this->submitEmail();
+            // Log the user in
+            Auth::login($user);
+
+            // Redirect to onboarding
+            return redirect()->route('onboarding.start');
+
+        } catch (\Exception $e) {
+            DB::rollBack();
+            $this->addError('email', 'An error occurred during registration. Please try again.');
+        }
     }
 
     public function render()
