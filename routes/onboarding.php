@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Route;
 | Multi-step onboarding flow for new users
 */
 
-Route::middleware(['auth'])->prefix('onboarding')->name('onboarding.')->group(function () {
+Route::middleware(['auth', 'verified'])->prefix('onboarding')->name('onboarding.')->group(function () {
     // Redirect /onboarding to /onboarding/start
     Route::get('/', function () {
         return redirect()->route('onboarding.start');

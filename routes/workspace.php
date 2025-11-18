@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Route;
 | Routes for workspace management (not multi-tenant subdomains yet)
 */
 
-Route::middleware(['auth'])->prefix('workspace')->name('workspace.')->group(function () {
+Route::middleware(['auth', 'verified'])->prefix('workspace')->name('workspace.')->group(function () {
     // Workspace Dashboard
     Route::get('/', [WorkspaceController::class, 'index'])->name('index');
     Route::get('/dashboard', [WorkspaceController::class, 'dashboard'])->name('dashboard');

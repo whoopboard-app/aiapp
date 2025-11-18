@@ -18,7 +18,7 @@ Route::get('/', function () {
 // Convenience redirect for /dashboard
 Route::get('/dashboard', function () {
     return redirect()->route('workspace.dashboard');
-})->middleware('auth');
+})->middleware(['auth', 'verified']);
 
 /*
 |--------------------------------------------------------------------------

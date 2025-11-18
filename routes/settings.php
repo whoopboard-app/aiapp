@@ -18,7 +18,7 @@ use App\Livewire\Settings\Plans;
 |--------------------------------------------------------------------------
 */
 
-Route::middleware(['auth'])->prefix('settings')->name('settings.')->group(function () {
+Route::middleware(['auth', 'verified'])->prefix('settings')->name('settings.')->group(function () {
     // Redirect /settings to /settings/general
     Route::get('/', function () {
         return redirect()->route('settings.general');

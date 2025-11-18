@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\Route;
 | Main SaaS features - all require authentication
 */
 
-Route::middleware(['auth'])->group(function () {
+Route::middleware(['auth', 'verified'])->group(function () {
     
     // Feedback Module
     Route::prefix('feedback')->name('feedback.')->group(function () {

@@ -52,7 +52,6 @@ class SignupStep1 extends Component
                 'name' => explode('@', $this->email)[0], // Use email prefix as name
                 'email' => $this->email,
                 'password' => Hash::make($this->password),
-                'email_verified_at' => now(), // Auto-verify for now
             ]);
 
             DB::commit();
@@ -60,8 +59,11 @@ class SignupStep1 extends Component
             // Log the user in
             Auth::login($user);
 
-            // Redirect to onboarding
-            return redirect()->route('onboarding.start');
+            // Send email verification notification
+            $user->sendEmailVerificationNotification();
+
+            // Redirect to email verification notice
+            return redirect()->route('verification.notice');
 
         } catch (\Exception $e) {
             DB::rollBack();
